@@ -6,25 +6,30 @@ var express = require('express'),
   app = express(),
   watson = require('watson-developer-cloud'),
   cloudant  = require('cloudant'),
-  bluemix = require('./config/bluemix'),
-  cors = require('cors'),
-  hash = require('string-hash'),
-  extend = require('util')._extend;
-
-// load the environment variables
-require('dotenv').load();
+  vcapServices = require('vcap_services'),
+  hash = require('string-hash');
 
 // Bootstrap application settings
 require('./config/express')(app);
 
 // set config flags for db usage
-app.set('useTestDb', false); // the test db only has 99 records for development speed....
-app.use(cors());
+// the test db only has 99 records for development speed....
+app.set('useTestDb', false);
 
+// When running locally make sure you update the credentials below or
+// the VCAP_SERVICES.json file
 var credentials = {
-  pi: extend({version: 'v2'}, bluemix.getServiceCreds('personality_insights')),
-  ta: extend({version: 'v1'}, bluemix.getServiceCreds('tradeoff_analytics')),
-  cloudant: bluemix.getServiceCreds('cloudant')
+  pi: {
+    username:'<username>',
+    password:'<password>',
+    version: 'v2'
+  },
+  ta: {
+    username:'<username>',
+    password:'<password>',
+    version: 'v1'
+  },
+  cloudant: vcapServices.getCredentials('cloudant')
 };
 
 app.persInsights = watson.personality_insights(credentials.pi);
@@ -33,6 +38,9 @@ app.tradeoffAnalytics = watson.tradeoff_analytics(credentials.ta);
 var analyzer  = require('./lib/school-analyzer')(app);
 var finder    = require('./lib/school-finder')(app);
 var persUtils = require('./lib/personality-util');
+
+var schooldocs = null;
+var ONE_HOUR = 3600000;
 
 // print the arguments
 console.log(process.argv.join(' '));
@@ -61,24 +69,30 @@ cloudant({
     if (process.argv[2] === 'mergePerformance') {
       analyzer.runPerformance();
     }
+  } else {
+    var updateSchools = function() {
+      app.schooldb.list({
+        include_docs: true
+      }, function(err, _schooldocs) {
+        if (err)
+          return console.log('Error getting the schools:', err.message);
+        else {
+          console.log('Updating schools cache with:', _schooldocs.rows.length, ' schools');
+          schooldocs = _schooldocs;
+        }
+      });
+    };
+    setInterval(updateSchools, ONE_HOUR);
+    updateSchools();
   }
 });
 
 app.get('/', function(req, res) {
   // get a count of our db records
-  if (!app.schooldb) {
+  if (!app.schooldb || !schooldocs)
     res.render('index', {schoolCount: 435});
-    return;
-  }
-
-  app.schooldb.list(function(err, docs) {
-    if (err)
-      console.log('error listing the schools:', err);
-    else {
-      console.log('index school list:', docs.rows.length);
-      res.render('index', { schoolCount: docs.rows.length });
-    }
-  });
+  else
+    res.render('index', { schoolCount: schooldocs.rows.length });
 });
 
 app.post('/student/submit', function(req, res, next){
@@ -97,10 +111,10 @@ app.post('/student/submit', function(req, res, next){
           next(err);
           return;
         }
-        console.log('got a student profile:', studentPersonality);
+        console.log('got a student profile');
         console.log('finding matches...');
         // TODO matching algorithm here against all schools
-        finder.findSchools(studentPersonality, function(err, matches){
+        finder.findSchools(schooldocs, studentPersonality, function(err, matches){
           if (err) {
             next(err);
             return;
@@ -138,7 +152,7 @@ app.post('/student/submit', function(req, res, next){
 
     } else if (data) {
       // we got a cached run!
-      console.log('found a cached run:', data);
+      console.log('found a cached');
       data.isCached = true;
       res.json(data);
     } else {

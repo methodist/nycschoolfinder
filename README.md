@@ -42,7 +42,7 @@
           },
         "label": "personality_insights",
         "name": "personality-insights-service",
-        "plan": "IBM Watson Personality Insights Monthly Plan"
+        "plan": "Standard"
      }]
     }
     }
@@ -91,4 +91,4 @@
 See the [LICENSE](LICENSE) file for license rights and limitations (MIT).
 
 [hackathon]: http://ibmwatsonhackathon.challengepost.com
-[demo]: http://nycschoolfinder.mybluemix.net
+[demo]: http://nyc-school-finder.mybluemix.net

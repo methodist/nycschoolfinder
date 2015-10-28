@@ -15,7 +15,10 @@ applications:
   - personality-insights-service
   - tradeoff-analytics-service
   - cloudant
-  name: nycschoolfinder
+  name: nyc-school-finder
   command: node app.js
   path: .
   memory: 512M
+  env:
+    NODE_ENV: production
+    SECURE_EXPRESS: true

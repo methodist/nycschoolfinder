@@ -1,13 +1,11 @@
 {
   "name": "NYCSchoolFinder",
-  "version": "0.0.5",
+  "version": "0.1.1",
   "description": "NYCSchoolFinder - Watson Hackathon Project",
   "dependencies": {
     "async": "^1.4.2",
     "body-parser": "~1.13.3",
     "cloudant": "^1.2.0",
-    "cors": "^2.7.1",
-    "dotenv": "^1.2.0",
     "errorhandler": "~1.4.2",
     "express": "~4.13.3",
     "jade": "~1.11.0",
@@ -15,14 +13,15 @@
     "serve-index": "^1.7.2",
     "string-hash": "^1.1.0",
     "underscore": "^1.8.3",
-    "watson-developer-cloud": "^0.9.27"
+    "vcap_services": "^0.1.7",
+    "watson-developer-cloud": "^0.10.27"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": ">=0.10.38"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/havasnewyork/nycschoolfinder.git"
+    "url": "https://github.com/germanattanasio/nycschoolfinder.git"
   },
   "author": "Havas Worldwide New York.",
   "contributors": [

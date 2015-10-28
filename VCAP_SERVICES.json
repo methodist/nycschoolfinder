@@ -1,1 +1,27 @@
-{}
+{
+  "personality_insights": [{
+    "credentials": {
+      "url": "https://gateway.watsonplatform.net/personality-insights/api",
+      "username": "a56309c0-8421-40b6-b48f-6ac14a55c19f",
+      "password": "aWE6SBo2yMjk"
+    }
+  }],
+
+  "tradeoff_analytics": [{
+    "credentials": {
+      "url": "https://gateway.watsonplatform.net/tradeoff-analytics/api",
+      "username": "49974c6a-7fb3-42b0-8d6c-ebc962026065",
+      "password": "ZWPITbo4EEjb"
+    }
+  }],
+
+  "cloudant": [{
+    "credentials": {
+      "username": "368e4417-1d7c-4076-ba14-67801e91da42-bluemix",
+      "password": "5c11c24fe9e700433adb3e8e978d9f4fd1784cf3166dda16c1d6e1849ab3b77a",
+      "host": "368e4417-1d7c-4076-ba14-67801e91da42-bluemix.cloudant.com",
+      "port": 443,
+      "url": "https://368e4417-1d7c-4076-ba14-67801e91da42-bluemix:5c11c24fe9e700433adb3e8e978d9f4fd1784cf3166dda16c1d6e1849ab3b77a@368e4417-1d7c-4076-ba14-67801e91da42-bluemix.cloudant.com"
+    }
+  }]
+}
