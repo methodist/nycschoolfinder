@@ -11,6 +11,8 @@ var express = require('express'),
   hash = require('string-hash'),
   extend = require('util')._extend;
 
+// load the environment variables
+require('dotenv').load();
 
 // Bootstrap application settings
 require('./config/express')(app);
