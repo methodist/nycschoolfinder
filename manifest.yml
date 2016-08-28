@@ -16,7 +16,7 @@ applications:
   - tradeoff-analytics-service
   - cloudant
   name: nyc-school-finder
-  command: node app.js
+  command: npm start
   path: .
   memory: 512M
   instances: 2

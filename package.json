@@ -33,6 +33,9 @@
     }
   ],
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "analyze": "node app.js analyze",
+    "merge-performance": "node app.js mergePerformance",
+    "train": "npm run analyze && npm run merge-performance"
   }
 }
