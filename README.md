@@ -60,16 +60,14 @@
 
 5. Go to https://cloudant.com/ and use the credentials from the `VCAP_SERVICES` to create two databases: `schools` and `tradeoffs`.
 
-6. Popule the databases with school information
+6. Populate the databases with school information
    ```
-   $ run node app.js analyze
-   $ run node app.js mergePerformance
+   $ npm run train
    ```
-     That will populate the schools database.
 
 6. Start the application
    ```
-   $ run node app.js
+   $ npm start
    ```
 
 7. Go to `http://localhost:3000`
