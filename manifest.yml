@@ -1,25 +1,25 @@
 
 ---
 declared-services:
-  cloudant:
-    label: cloudantNoSQLDB
-    plan: Shared
-  personality-insights-service-standard:
-    label: personality_insights
-    plan: standard
-  tradeoff-analytics-standard-service:
-    label: tradeoff_analytics
+  CloudantNoSQLDB-01:
+    label: Cloudant NoSQL DB
+    plan: Lite
+  PersonalityInsights-01:
+    label: Personality Insights
+    plan: Tiered
+  TradeOffAnal-01:
+    label: Tradeoff Analytics
     plan: standard
 applications:
 - services:
-  - personality-insights-service
-  - tradeoff-analytics-service
-  - cloudant
+  - PersonalityInsights-01
+  - TradeOffAnal-01
+  - CloudantNoSQLDB-01
   name: nyc-school-finder
   command: npm start
   path: .
-  memory: 512M
-  instances: 2
+  memory: 256M
+  instances: 1
   env:
     NODE_ENV: production
     SECURE_EXPRESS: true
