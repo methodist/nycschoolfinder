@@ -2,6 +2,8 @@
 
 'use strict';
 
+require('dotenv').config({silent: true});
+
 var express = require('express'),
   app = express(),
   watson = require('watson-developer-cloud'),
@@ -180,6 +182,6 @@ app.post('/tradeoff/:id', getTradeoff);
 // error-handler settings
 require('./config/error-handler')(app);
 
-var port = process.env.VCAP_APP_PORT || 3000;
+var port = process.env.PORT || process.env.VCAP_APP_PORT || 3000;
 app.listen(port);
 console.log('listening at:', port);

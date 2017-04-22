@@ -6,6 +6,7 @@
     "async": "^1.4.2",
     "body-parser": "~1.13.3",
     "cloudant": "^1.2.0",
+    "dotenv": "^4.0.0",
     "errorhandler": "~1.4.2",
     "express": "~4.13.3",
     "express-secure-only": "^0.2.1",
